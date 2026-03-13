@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -13,16 +14,20 @@ import java.time.LocalDate;
 //  - Add @Id and @GeneratedValue(strategy = GenerationType.IDENTITY) to id
 //  - Add a no-arg constructor (already exists)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Entity
+@Table(name = "orders")
 public class Order {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String description;
     private String status;
     private double totalAmount;
     private String customerEmail;
 
     @JsonProperty("order_date")
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
 
     @JsonIgnore
